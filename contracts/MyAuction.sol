@@ -47,19 +47,19 @@ contract MyAuction {
     // is asked to confirm a transaction or
     // when an error is displayed.
 
-    /// The auction has already ended.
-    error AuctionAlreadyEnded();
-    // The auction didn't started
-    error AuctionNotStarted();
-    /// There is already a higher or equal bid.
-    error BidNotHighEnough(uint highestBid);
-    /// The auction has not ended yet.
-    error AuctionNotYetEnded();
-    /// The function auctionEnd has already been called.
-    error AuctionEndAlreadyCalled();
-    /// The function
-    error participantingFailed();
-    error CantEndYet();
+//    /// The auction has already ended.
+//    error AuctionAlreadyEnded();
+//    // The auction didn't started
+//    error AuctionNotStarted();
+//    /// There is already a higher or equal bid.
+//    error BidNotHighEnough(uint highestBid);
+//    /// The auction has not ended yet.
+//    error AuctionNotYetEnded();
+//    /// The function auctionEnd has already been called.
+//    error AuctionEndAlreadyCalled();
+//    /// The function
+//    error participantingFailed();
+//    error CantEndYet();
     /// Create a simple auction with `_biddingTime`
     /// seconds bidding time on behalf of the
     /// beneficiary address `_beneficiary`.
@@ -127,10 +127,10 @@ contract MyAuction {
             if(sented1&& sented2)
                 participants.push(msg.sender);
             else
-            revert participantingFailed();
+            revert ("participantingFailed");
         }
         else{
-            revert AuctionNotStarted();
+            revert ("AuctionNotStarted");
         }
     }
 
@@ -145,13 +145,13 @@ contract MyAuction {
     function bid(uint value) public payable {
 
         if (ended)
-            revert AuctionAlreadyEnded();
+            revert ("AuctionAlreadyEnded");
 
         if (!started)
-            revert AuctionNotStarted();
+            revert ("AuctionNotStarted");
 
         if (value <= highestBid && value <=startingBid)
-            revert BidNotHighEnough(highestBid);
+            revert ("BidNotHighEnough");
         else{
             highestBidder = msg.sender;
             highestBid = value;
@@ -168,9 +168,9 @@ contract MyAuction {
                 ended=true;
             }
             else
-                revert CantEndYet();
+                revert ("CantEndYet");
         }
-        revert AuctionNotStarted();
+        revert("AuctionNotStarted");
     }
     /// Withdraw a bid that was overbid.
     function withdraw() private {
