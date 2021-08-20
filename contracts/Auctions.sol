@@ -1,4 +1,4 @@
-pragma solidity ^0.8.6;
+pragma solidity ^0.8.0;
 import { MyAuction } from './MyAuction.sol';
 
 contract Auctions {
